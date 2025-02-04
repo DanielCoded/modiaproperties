@@ -1,11 +1,12 @@
-"use server"
-
 import { supabase } from "@/lib/supabase"
 import type { Property } from "@/types"
 
-export async function getProperties(): Promise<Property[]> {
+export async function fetchProperties(): Promise<Property[]> {
   try {
-    const { data, error } = await supabase.from("properties").select("*").order("created_at", { ascending: false })
+    const { data, error } = await supabase
+      .from("properties")
+      .select("*")
+      .order("created_at", { ascending: false })
 
     if (error) {
       console.error("Supabase error:", error)
@@ -18,4 +19,5 @@ export async function getProperties(): Promise<Property[]> {
     return []
   }
 }
+
 
