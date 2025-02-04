@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import type { Property } from "@/types"
 import { PropertyCard } from "@/components/property-card"
-import { getProperties } from "@/app/actions/properties"
+import { fetchProperties } from "@/app/actions/properties" // Updated import
 import { motion } from "framer-motion"
 
 export default function AllProperties() {
@@ -12,10 +12,10 @@ export default function AllProperties() {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    const fetchProperties = async () => {
+    const loadProperties = async () => {
       try {
         setIsLoading(true)
-        const fetchedProperties = await getProperties()
+        const fetchedProperties = await fetchProperties() // Updated function call
         setProperties(fetchedProperties)
         setError(null)
       } catch (error) {
@@ -25,7 +25,7 @@ export default function AllProperties() {
         setIsLoading(false)
       }
     }
-    fetchProperties()
+    loadProperties()
   }, [])
 
   if (isLoading) {
@@ -60,4 +60,3 @@ export default function AllProperties() {
     </section>
   )
 }
-
